@@ -4,8 +4,8 @@
 # homework with lists and for
 # ex 1
 def say_hello_to_all(list_of_names):
-    # write a for to say(print) hello to all names
-    pass
+    for name in list_of_names:
+        print(name)
 
 
 names = ["Bob", "Jane", "Bill", "George", "Ryan"]
@@ -14,8 +14,9 @@ say_hello_to_all(names)
 
 # ex 2
 def print_only_odd_numbers(list_of_numbers):
-    # print only the odd numbers from the list (numerele impare)
-    pass
+    for nr in list_of_numbers:
+        if nr % 2 != 0:
+            print(nr)
 
 
 numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
@@ -24,14 +25,11 @@ print_only_odd_numbers(numbers)
 
 # ex 3
 def return_even_numbers(list_of_numbers):
-    # return a new list with only the even numbers
-    # example of code to add element to the end of a list
-    #   lista.append(4)
-    pass
-
-
-even_numbers = return_even_numbers(numbers)
-print(even_numbers)
+    lista = [] # create a new empty list
+    for nr in list_of_numbers:
+        if nr % 2 == 0: # check nr is divisible by 2, rest equals 0
+            lista.append(nr)
+    return lista
 
 
 
