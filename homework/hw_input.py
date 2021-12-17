@@ -1,3 +1,6 @@
+#This exercises are for the input function
+#you can play a little with the function here https://www.w3schools.com/python/ref_func_input.asp
+
 #ex1
 # take 2 numbers from the user
 # print the sum back
