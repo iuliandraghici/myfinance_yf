@@ -45,6 +45,15 @@ class Handler(BaseHTTPRequestHandler):
             self.send_response(404, message="The book was not added to inventory!")
         self.add_headers()
 
+    def do_GET(self):
+        # write the code of the response
+        self.send_response(200)
+        # write the headers
+        self.add_headers()
+        # write the body
+        d_json = json.dumps(self.books)
+        self.wfile.write(bytes(d_json, encoding="ISO-8859-1"))
+
 
     def read_input(self):
         length = self.headers['Content-Length']
@@ -52,7 +61,6 @@ class Handler(BaseHTTPRequestHandler):
         return json.loads(input)
 
     def add_headers(self):
-        print(self.books)
         self.send_header("Content-type", "application/json")
         self.end_headers()
 
