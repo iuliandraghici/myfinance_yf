@@ -45,9 +45,9 @@
 # # ex5 - define a function which makes the sum of the values from a dictionary
 # #     sum(dict1.values())
 # # ex6 - define a function which creates a string from the keys of a dictionary
-# def create_string_from_keys(dict1: dict) -> str:
-#     keys = dict1.keys()  # collect the keys
-#     return "-".join(keys)  # glue/join them in a string
+def create_string_from_keys(dict1: dict) -> str:
+    keys = dict1.keys() # collect the keys
+    return "-".join(keys)  # glue/join them in a string
 #
 #
 # str2 = create_string_from_keys(dict4)
