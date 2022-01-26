@@ -9,12 +9,12 @@ import json
 from http.server import BaseHTTPRequestHandler, HTTPServer
 
 
-class Game:
-    def __init__(self, name: str, studio: str, total_hours: int, hours_played: int):
+class EntertainmentItem:
+    def __init__(self, name: str, studio: str, length: int, consumed: int):
         self.name = name
         self.studio = studio
-        self.total_hours = total_hours
-        self.hours_played = hours_played
+        self.length = length
+        self.consumed = consumed
 
     def to_json(self):
         return {
@@ -24,11 +24,21 @@ class Game:
     def to_json_with_progress(self):
         return {
             "name": self.name,
-            "progress": str(self.hours_played / self.total_hours * 100) + "%",
+            "progress": str(self.consumed / self.length * 100) + "%",
         }
 
-    def add_hours(self, hours: int):
-        self.hours_played += hours
+    def add_progress(self, progress: int):
+        self.consumed += progress
+
+
+class Film(EntertainmentItem):
+    def __init__(self, name: str, studio: str, length: int, watched: int):
+        super().__init__(name, studio, length, watched)
+
+
+class Game(EntertainmentItem):
+    def __init__(self, name: str, studio: str, total_hours: int, hours_played: int):
+        super().__init__(name, studio, total_hours, hours_played)
 
 
 class OurHandler(BaseHTTPRequestHandler):
@@ -61,7 +71,7 @@ class OurHandler(BaseHTTPRequestHandler):
         if "/games" in self.path:
             hours = input["hours_played"]
             name = self.path[7:]
-            self.games[name].add_hours(hours)
+            self.games[name].add_progress(hours)
         self.send_response_and_headers()
 
     def do_DELETE(self):
