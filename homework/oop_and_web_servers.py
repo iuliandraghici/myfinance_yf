@@ -21,10 +21,19 @@ class Game:
             "name": self.name,
         }
 
+    def to_json_with_progress(self):
+        return {
+            "name": self.name,
+            "progress": str(self.hours_played / self.total_hours * 100) + "%",
+        }
+
+    def add_hours(self, hours: int):
+        self.hours_played += hours
+
 
 class OurHandler(BaseHTTPRequestHandler):
-    games = []
-    tvshows = []
+    games = {}
+    tvshows = {}
 
     def do_GET(self):
         self.send_response_and_headers()
@@ -32,6 +41,8 @@ class OurHandler(BaseHTTPRequestHandler):
             self.write_to_body(self.games)
         if self.path == "/tvshows":
             self.write_to_body(self.tvshows)
+        if self.path == "/games/progress":
+            self.write_to_body(self.games, "to_json_with_progress")
 
     def send_response_and_headers(self):
         self.send_response(200)
@@ -42,7 +53,23 @@ class OurHandler(BaseHTTPRequestHandler):
         input = self.read_user_input()
         if self.path == "/games":
             new_game = Game(input["name"], input["studio"], input["total_hours"], input["hours_played"])
-            self.games.append(new_game)
+            self.games[new_game.name] = new_game
+        self.send_response_and_headers()
+
+    def do_PUT(self):
+        input = self.read_user_input()
+        if "/games" in self.path:
+            hours = input["hours_played"]
+            name = self.path[7:]
+            self.games[name].add_hours(hours)
+        self.send_response_and_headers()
+
+    def do_DELETE(self):
+        if "/games" in self.path:
+            # self.path = /games/spiderman
+            # self.path = /games/godofwar
+            name = self.path[7:]
+            self.games.pop(name)
         self.send_response_and_headers()
 
     def read_user_input(self):
@@ -51,8 +78,9 @@ class OurHandler(BaseHTTPRequestHandler):
         d = json.loads(input)
         return d
 
-    def write_to_body(self, items):
-        items_dict = [x.to_json() for x in items]
+    def write_to_body(self, items: dict, method_to_json: str = "to_json"):
+        # to call an object's function using a string, use getattr
+        items_dict = [getattr(x, method_to_json)() for x in items.values()]
         json_items = json.dumps(items_dict)
         self.wfile.write(bytes(json_items, encoding="utf8"))
 
@@ -61,7 +89,6 @@ if __name__ == "__main__":
     server_and_port = ("localhost", 7777)
     server = HTTPServer(server_and_port, OurHandler)
     server.serve_forever()
-
 
 # Create classes for these 4 types of data
 # games have a name, studio, hours to finish, hours played
