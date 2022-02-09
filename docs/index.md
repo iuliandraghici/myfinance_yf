@@ -4,9 +4,13 @@
 
 [[Functions]]
 
+[[Exceptions]]
+
 [[Version_control]]
 
 [[Databases]]
+
+[[Files]]
 
 [[API]]
 
