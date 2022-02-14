@@ -10,6 +10,7 @@
 
 import json
 from fastapi import FastAPI
+from stock import Stock
 
 app = FastAPI(
     title="Name of our app",  # TODO for homework, name your application
@@ -32,16 +33,15 @@ def health() -> dict:
     }
 
 
-list_of_items = []
+# stocks will keep a list of Stock objects
+stocks = {}
 
 
-# TODO replace this call with your domain item, put at least 4 values
-# example, if you want to do a tasks app you can add a task (name, deadline, priority, category)
-# save the item in the file
-@app.post("/items")
-def add_new_item(request: dict):
-    list_of_items.append(request)
-    list_json = json.dumps(list_of_items)
+@app.post("/stocks")
+def add_new_stock(stock_info: dict):
+    new_stock = Stock(stock_info["ticker"], stock_info["company"], stock_info["field"])
+    stocks[stock_info["ticker"]] = new_stock
+    list_json = json.dumps([x.to_json() for x in stocks.values()])
     file = open("database.txt", "w")
     file.write(list_json)
     file.close()
@@ -49,9 +49,9 @@ def add_new_item(request: dict):
 
 # TODO return your domain items
 # example if you want to do a tasks app return the list of tasks, and rename the url /items -> /tasks
-@app.get("/items")
-def get_items():
-    return list_of_items
+@app.get("/stocks")
+def get_stocks():
+    return stocks
 
 
 # TODO add a put method to edit your domain item
@@ -59,9 +59,22 @@ def get_items():
 # these methods should also save the data into a file for persistence across server reboots
 
 
+@app.delete("/stocks")
+def remove_stock(ticker: str):
+    stocks.pop(ticker)
+    list_json = json.dumps([x.to_json() for x in stocks.values()])
+    file = open("database.txt", "w")
+    file.write(list_json)
+    file.close()
+
+
 @app.on_event("startup")
 def load_list_of_items():
     file = open("database.txt")
     json_items = file.read()
     file.close()
-    list_of_items.append(json.loads(json_items))
+    items = json.loads(json_items)
+    # items = list of dictionaries from the file
+    for one_item in items:
+        new_stock = Stock(one_item["ticker"], one_item["company"], one_item["field"], one_item["amount"])
+        stocks[one_item["ticker"]] = new_stock

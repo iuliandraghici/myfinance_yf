@@ -1,1 +1,1 @@
-[{"name": "item1"}]
+[{"ticker": "TSLA", "company": "Tesla Inc", "field": "automotive", "amount": 0}]
