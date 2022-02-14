@@ -8,9 +8,9 @@
 # --reload -> the server will restart when we modify the code
 # --port <port_number> -> select on which port to start
 
-import json
 from fastapi import FastAPI
 from stock import Stock
+from stock_repo import StockRepository
 
 app = FastAPI(
     title="Name of our app",  # TODO for homework, name your application
@@ -33,25 +33,21 @@ def health() -> dict:
     }
 
 
-# stocks will keep a list of Stock objects
-stocks = {}
+stock_repo = StockRepository()
 
 
 @app.post("/stocks")
 def add_new_stock(stock_info: dict):
     new_stock = Stock(stock_info["ticker"], stock_info["company"], stock_info["field"])
-    stocks[stock_info["ticker"]] = new_stock
-    list_json = json.dumps([x.to_json() for x in stocks.values()])
-    file = open("database.txt", "w")
-    file.write(list_json)
-    file.close()
+    stock_repo.add(new_stock)
 
 
 # TODO return your domain items
 # example if you want to do a tasks app return the list of tasks, and rename the url /items -> /tasks
 @app.get("/stocks")
 def get_stocks():
-    return stocks
+    stocks = stock_repo.get_all()
+    return [s.to_json() for s in stocks]
 
 
 # TODO add a put method to edit your domain item
@@ -61,20 +57,10 @@ def get_stocks():
 
 @app.delete("/stocks")
 def remove_stock(ticker: str):
-    stocks.pop(ticker)
-    list_json = json.dumps([x.to_json() for x in stocks.values()])
-    file = open("database.txt", "w")
-    file.write(list_json)
-    file.close()
+    stock_repo.remove(ticker)
 
 
 @app.on_event("startup")
 def load_list_of_items():
-    file = open("database.txt")
-    json_items = file.read()
-    file.close()
-    items = json.loads(json_items)
-    # items = list of dictionaries from the file
-    for one_item in items:
-        new_stock = Stock(one_item["ticker"], one_item["company"], one_item["field"], one_item["amount"])
-        stocks[one_item["ticker"]] = new_stock
+    stock_repo.load()
+
