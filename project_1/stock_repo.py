@@ -12,7 +12,7 @@ class StockRepository:
         self.__save()
 
     def get_all(self) -> list[Stock]:
-        return self.stocks.values()
+        return list(self.stocks.values())
 
     def remove(self, stock_id: str):
         self.stocks.pop(stock_id)
@@ -29,7 +29,12 @@ class StockRepository:
             self.stocks[one_item["ticker"]] = new_stock
 
     def __save(self):
-        list_json = json.dumps([x.to_json() for x in self.stocks.values()])
+        list_json = json.dumps([{
+            "ticker": x.ticker,
+            "company": x.company,
+            "amount": x.amount,
+            "field": x.field,
+        } for x in self.stocks.values()], indent=2)
         file = open("database.txt", "w")
         file.write(list_json)
         file.close()
