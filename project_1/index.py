@@ -48,6 +48,8 @@ def add_new_stock(stock_info: StockModel):
 def get_stocks():
     return stock_repo.get_all()
 
+#TODO create a get for a single stock, we give the ticker and receive more information
+# additional information: long summary, on which exchange it is, country, number of employees, industry
 
 # TODO add a put method to edit your domain item
 
