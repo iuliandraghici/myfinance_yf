@@ -1,5 +1,7 @@
 import json
 from stock import Stock
+from exceptions import StockNotFound
+from stock_factory import StockFactory
 
 
 class StockRepository:
@@ -14,6 +16,14 @@ class StockRepository:
     def get_all(self) -> list[Stock]:
         return list(self.stocks.values())
 
+    # if we do not have the stock, we can raise an error or return None
+    def get_by_ticker(self, ticker: str) -> Stock:
+        if ticker in self.stocks.keys():
+            return self.stocks[ticker]
+        else:
+            raise StockNotFound()
+        # return StockFactory().make_extended_stock(ticker)
+
     def remove(self, stock_id: str):
         self.stocks.pop(stock_id)
         self.__save()
@@ -26,6 +36,9 @@ class StockRepository:
         # items = list of dictionaries from the file
         for one_item in items:
             new_stock = Stock(one_item["ticker"], one_item["company"], one_item["field"], one_item["amount"])
+            if "longSummary" in one_item and "exchange" in one_item:
+                new_stock.set_long_summary(one_item["longSummary"])
+                new_stock.set_exchange(one_item["exchange"])
             self.stocks[one_item["ticker"]] = new_stock
 
     def __save(self):
@@ -34,6 +47,8 @@ class StockRepository:
             "company": x.company,
             "amount": x.amount,
             "field": x.field,
+            "longSummary": x.long_summary,
+            "exchange": x.exchange,
         } for x in self.stocks.values()], indent=2)
         file = open("database.txt", "w")
         file.write(list_json)
