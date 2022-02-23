@@ -13,7 +13,8 @@ from fastapi import FastAPI
 from fastapi.responses import JSONResponse
 from stock_factory import StockFactory
 from stock_repo import StockRepository
-from models import StockModel
+from config import Configuration
+from models import StockModel, StockExtendedModel
 from exceptions import StockNotFound
 
 app = FastAPI(
@@ -38,6 +39,7 @@ def health() -> dict:
 
 
 stock_repo = StockRepository()
+conf = Configuration()
 
 
 @app.post("/stocks")
@@ -48,15 +50,23 @@ def add_new_stock(stock_info: StockModel):
 
 # example if you want to do a tasks app return the list of tasks, and rename the url /items -> /tasks
 @app.get("/stocks", response_model=list[StockModel])
-def get_stocks(field: str = None):
-    return stock_repo.get_all()
+def get_stocks(field: str = None, page: int = None):
+    stocks = stock_repo.get_all()
+    if field:
+        stocks = [s for s in stocks if s.field == field]
+    if page is not None and page >= 0:
+        number_of_items_per_page = conf.get_number_of_items_per_page()
+        # page = 0, 0:2
+        # page = 1, 2:4
+        stocks = stocks[page * number_of_items_per_page:(page+1) * number_of_items_per_page]
+    return stocks
 
 
 #TODO create a get for a single stock, we give the ticker and receive more information
 # additional information: long summary, on which exchange it is, country, number of employees, industry
 
 # we can put an id in the URL to select only one resource
-@app.get("/stocks/{ticker_id}", response_model=StockModel)
+@app.get("/stocks/{ticker_id}", response_model=StockExtendedModel)
 def get_one_stock(ticker_id: str):
     return stock_repo.get_by_ticker(ticker_id)
 
