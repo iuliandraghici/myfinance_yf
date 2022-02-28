@@ -14,7 +14,9 @@ class StockFactory:
         field = yf_ticker.info["sector"]
         long_summary = yf_ticker.info["longBusinessSummary"]
         exchange = yf_ticker.info["exchange"]
-        new_stock = Stock(model.ticker, company, field)
+        country = yf_ticker.info["country"]
+        number_of_employees = yf_ticker.info["fullTimeEmployees"]
+        new_stock = Stock(model.ticker, company, field, country, number_of_employees)
         new_stock.set_long_summary(long_summary)
         new_stock.set_exchange(exchange)
         return new_stock

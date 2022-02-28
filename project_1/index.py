@@ -50,12 +50,15 @@ def add_new_stock(stock_info: StockModel):
 
 # example if you want to do a tasks app return the list of tasks, and rename the url /items -> /tasks
 @app.get("/stocks", response_model=list[StockModel])
-def get_stocks(field: str = None, page: int = None):
+def get_stocks(field: str = None, min_employees: int = None, page: int = None, items_per_page: int = None):
     stocks = stock_repo.get_all()
     if field:
         stocks = [s for s in stocks if s.field == field]
+    if min_employees:
+        stocks = [s for s in stocks if s.number_of_employees >= min_employees]
     if page is not None and page >= 0:
-        number_of_items_per_page = conf.get_number_of_items_per_page()
+        # below, it's called a ternary operator
+        number_of_items_per_page = items_per_page if items_per_page else conf.get_number_of_items_per_page()
         # page = 0, 0:2
         # page = 1, 2:4
         stocks = stocks[page * number_of_items_per_page:(page+1) * number_of_items_per_page]

@@ -35,7 +35,8 @@ class StockRepository:
         items = json.loads(json_items)
         # items = list of dictionaries from the file
         for one_item in items:
-            new_stock = Stock(one_item["ticker"], one_item["company"], one_item["field"], one_item["amount"])
+            new_stock = Stock(one_item["ticker"], one_item["company"], one_item["field"],
+                              one_item["country"], one_item["numberOfEmployees"], one_item["amount"])
             if "longSummary" in one_item and "exchange" in one_item:
                 new_stock.set_long_summary(one_item["longSummary"])
                 new_stock.set_exchange(one_item["exchange"])
@@ -49,6 +50,8 @@ class StockRepository:
             "field": x.field,
             "longSummary": x.long_summary,
             "exchange": x.exchange,
+            "country": x.country,
+            "numberOfEmployees": x.number_of_employees,
         } for x in self.stocks.values()], indent=2)
         file = open("database.txt", "w")
         file.write(list_json)
