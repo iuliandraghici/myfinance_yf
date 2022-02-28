@@ -1,3 +1,7 @@
 {
-  "number_of_items_per_page": 3
+  "number_of_items_per_page": 3,
+  "database": {
+    "type": "file",
+    "path": "database.txt"
+  }
 }

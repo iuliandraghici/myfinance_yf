@@ -1,17 +1,27 @@
-import json
 from stock import Stock
 from exceptions import StockNotFound
-from stock_factory import StockFactory
+from persistance_interface import PersistanceInterface
 
 
 class StockRepository:
-    def __init__(self):
+    def __init__(self, persistance: PersistanceInterface):
         self.stocks = {}
+        self.persistance = persistance
         # self.__load()
 
     def add(self, new_stock: Stock):
         self.stocks[new_stock.ticker] = new_stock
-        self.__save()
+        stock_info = {
+            "ticker": new_stock.ticker,
+            "company": new_stock.company,
+            "amount": new_stock.amount,
+            "field": new_stock.field,
+            "longSummary": new_stock.long_summary,
+            "exchange": new_stock.exchange,
+            "country": new_stock.country,
+            "numberOfEmployees": new_stock.number_of_employees,
+        }
+        self.persistance.add(stock_info)
 
     def get_all(self) -> list[Stock]:
         return list(self.stocks.values())
@@ -26,13 +36,10 @@ class StockRepository:
 
     def remove(self, stock_id: str):
         self.stocks.pop(stock_id)
-        self.__save()
+        self.persistance.remove(stock_id)
 
     def load(self):
-        file = open("database.txt")
-        json_items = file.read()
-        file.close()
-        items = json.loads(json_items)
+        items = self.persistance.get_all()
         # items = list of dictionaries from the file
         for one_item in items:
             new_stock = Stock(one_item["ticker"], one_item["company"], one_item["field"],
@@ -42,17 +49,3 @@ class StockRepository:
                 new_stock.set_exchange(one_item["exchange"])
             self.stocks[one_item["ticker"]] = new_stock
 
-    def __save(self):
-        list_json = json.dumps([{
-            "ticker": x.ticker,
-            "company": x.company,
-            "amount": x.amount,
-            "field": x.field,
-            "longSummary": x.long_summary,
-            "exchange": x.exchange,
-            "country": x.country,
-            "numberOfEmployees": x.number_of_employees,
-        } for x in self.stocks.values()], indent=2)
-        file = open("database.txt", "w")
-        file.write(list_json)
-        file.close()

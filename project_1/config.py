@@ -10,3 +10,10 @@ class Configuration:
 
     def get_number_of_items_per_page(self) -> int:
         return self.conf["number_of_items_per_page"]
+
+    def get_db_type(self) -> str:
+        return self.conf["database"]["type"]
+
+    def get_db_path(self) -> str:
+        return self.conf["database"]["path"]
+

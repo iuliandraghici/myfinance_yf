@@ -14,6 +14,7 @@ from fastapi.responses import JSONResponse
 from stock_factory import StockFactory
 from stock_repo import StockRepository
 from config import Configuration
+from stock_file_persistance import StockFilePersistance
 from models import StockModel, StockExtendedModel
 from exceptions import StockNotFound
 
@@ -38,8 +39,10 @@ def health() -> dict:
     }
 
 
-stock_repo = StockRepository()
 conf = Configuration()
+if conf.get_db_type() == "file":
+    persistance = StockFilePersistance(conf.get_db_path())
+stock_repo = StockRepository(persistance)
 
 
 @app.post("/stocks")
@@ -61,18 +64,17 @@ def get_stocks(field: str = None, min_employees: int = None, page: int = None, i
         number_of_items_per_page = items_per_page if items_per_page else conf.get_number_of_items_per_page()
         # page = 0, 0:2
         # page = 1, 2:4
-        stocks = stocks[page * number_of_items_per_page:(page+1) * number_of_items_per_page]
+        stocks = stocks[page * number_of_items_per_page:(page + 1) * number_of_items_per_page]
     return stocks
 
 
-#TODO create a get for a single stock, we give the ticker and receive more information
+# TODO create a get for a single stock, we give the ticker and receive more information
 # additional information: long summary, on which exchange it is, country, number of employees, industry
 
 # we can put an id in the URL to select only one resource
 @app.get("/stocks/{ticker_id}", response_model=StockExtendedModel)
 def get_one_stock(ticker_id: str):
     return stock_repo.get_by_ticker(ticker_id)
-
 
 
 # TODO add a put method to edit your domain item
