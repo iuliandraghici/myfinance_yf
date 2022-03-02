@@ -8,6 +8,7 @@ class StockSqlPersistance(StockPersistanceInterface):
         self.path = path
 
     def get_all(self) -> list[dict]:
+        #TODO get info from DB
         return []
 
     def add(self, stock_info: dict):
@@ -23,4 +24,5 @@ class StockSqlPersistance(StockPersistanceInterface):
         connection.close()
 
     def remove(self, stock_id: str):
+        #TODO remove stock based on ticker id
         pass
