@@ -1,6 +1,6 @@
 # step1: read the file or database
 print("STEP1: Reading the file ...")
-file = open("../database.txt")  # in path, a single dot . -> current directory, .. -> parent directory
+file = open("../my_finance/database/database.txt")  # in path, a single dot . -> current directory, .. -> parent directory
 contents = file.read()
 file.close()
 import json
@@ -17,6 +17,6 @@ for s in stocks:  # stocks is a list of dicts
 
 print("STEP3: Save to file (or database)")
 new_content = json.dumps(stocks, indent=2)
-file = open("../database.txt", "w")
+file = open("../my_finance/database/database.txt", "w")
 file.write(new_content)
 file.close()

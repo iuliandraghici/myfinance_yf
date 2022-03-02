@@ -1,10 +1,10 @@
-from stock import Stock
+from stock.stock import Stock
 from exceptions import StockNotFound
-from persistance_interface import PersistanceInterface
+from stock.persistance_interface import StockPersistanceInterface
 
 
 class StockRepository:
-    def __init__(self, persistance: PersistanceInterface):
+    def __init__(self, persistance: StockPersistanceInterface):
         self.stocks = {}
         self.persistance = persistance
         # self.__load()

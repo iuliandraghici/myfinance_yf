@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 
 
-class PersistanceInterface(ABC):
+class StockPersistanceInterface(ABC):
     @abstractmethod
     def get_all(self) -> list[dict]:
         pass
