@@ -8,7 +8,8 @@
 # --reload -> the server will restart when we modify the code
 # --port <port_number> -> select on which port to start
 
-
+import yfinance
+import logging
 from fastapi import FastAPI
 from fastapi.responses import JSONResponse
 from fastapi_utils.tasks import repeat_every
@@ -38,6 +39,9 @@ if conf.get_db_type() == "sql":
 StockRepository.persistance = persistance
 stock_repo = StockRepository()
 
+logging.basicConfig(filename="finance.log", encoding="utf-8", level=logging.DEBUG)
+logging.info("Starting the finance app ...")
+
 
 # TODO create a get for a single stock, we give the ticker and receive more information
 # additional information: long summary, on which exchange it is, country, number of employees, industry
@@ -45,29 +49,22 @@ stock_repo = StockRepository()
 
 @app.on_event("startup")
 def load_list_of_items():
+    logging.info("Loading stocks from database ...")
     stock_repo.load()
-    # tickers = stock_repo.stocks.keys()
-    # for a_ticker in tickers:
-    #     yf_ticker = yfinance.Ticker(a_ticker)
-    #     price = yf_ticker.info["currentPrice"]
-    #     stock_repo.stocks[a_ticker].set_price(price)
+    logging.info("Successfully loaded stocks from database.")
 
 
-import yfinance
-
-
-# import logging
-# import sys
-
-# @repeat_every(seconds=5, wait_first=True, logger=logging.basicConfig(stream=sys.stdout, level=logging.DEBUG))  # every 5 seconds we run this function
+@app.on_event("startup")
+@repeat_every(seconds=5 * 60, wait_first=True)  # every 5 seconds we run this function
 def update_prices():
     # get all stocks
     # get price (yfinance)
     # stock set price
     if not stock_repo.stocks:
+        logging.warning("Stocks not loaded yet!")
         return
-    print("ssss ------ sssss")
     tickers = stock_repo.stocks.keys()
+    logging.info("Updating prices ...")
     for a_ticker in tickers:
         yf_ticker = yfinance.Ticker(a_ticker)
         price = yf_ticker.info["currentPrice"]

@@ -2,6 +2,7 @@ from fastapi import APIRouter
 
 from models import StockModel, StockExtendedModel
 from stock.stock_factory import StockFactory
+from stock.stock import Stock
 from stock.stock_repo import StockRepository
 
 stocks_router = APIRouter(prefix="/stocks")
@@ -10,7 +11,7 @@ stocks_repo = StockRepository()
 
 @stocks_router.post("")
 def add_new_stock(stock_info: StockModel):
-    new_stock = StockFactory().make_from_model(stock_info)
+    new_stock = StockFactory.make_from_model(stock_info)
     stocks_repo.add(new_stock)
 
 
