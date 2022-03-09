@@ -7,6 +7,7 @@ class StockModel(BaseModel):
     ticker: str = Field(description="The ticker ID of the stock, for example Tesla has TSLA")
     company: str = Field(default="", description="The full company name, leave empty for POST")
     field: str = Field(default="")
+    price: float = Field(default=-1, description="Current price updated in real time")
 
     class Config:
         orm_mode = True

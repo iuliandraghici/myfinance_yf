@@ -11,6 +11,7 @@
 
 from fastapi import FastAPI
 from fastapi.responses import JSONResponse
+from fastapi_utils.tasks import repeat_every
 
 from stock.stock_factory import StockFactory
 from stock.stock_repo import StockRepository
@@ -92,6 +93,30 @@ def remove_stock(ticker: str):
 @app.on_event("startup")
 def load_list_of_items():
     stock_repo.load()
+    tickers = stock_repo.stocks.keys()
+    for a_ticker in tickers:
+        yf_ticker = yfinance.Ticker(a_ticker)
+        price = yf_ticker.info["currentPrice"]
+        stock_repo.stocks[a_ticker].set_price(price)
+
+
+import yfinance
+# import logging
+# import sys
+
+# @repeat_every(seconds=5, wait_first=True, logger=logging.basicConfig(stream=sys.stdout, level=logging.DEBUG))  # every 5 seconds we run this function
+# def update_prices():
+#     # get all stocks
+#     # get price (yfinance)
+#     # stock set price
+#     if not stock_repo.stocks:
+#         return
+#     print("ssss ------ sssss")
+#     tickers = stock_repo.stocks.keys()
+#     for a_ticker in tickers:
+#         yf_ticker = yfinance.Ticker(a_ticker)
+#         price = yf_ticker.info["currentPrice"]
+#         stock_repo.stocks[a_ticker].set_price(price)
 
 
 @app.exception_handler(StockNotFound)
