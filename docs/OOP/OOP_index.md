@@ -6,6 +6,8 @@
 
 [[Design_Patterns]]
 
+[[Static]]
+
 More documentation/information:
 
 https://en.wikipedia.org/wiki/Object-oriented_programming
