@@ -21,6 +21,8 @@ class StockExtendedModel(StockModel):
 
 
 class DiagramModel(BaseModel):
-    ticker: str = Field()
+    tickers: list[str] = Field()
     info: str = Field(default="Close", description="Values: Open, Close, High, Low")
-    interval: str = Field(default="3y", description="examples: max, 3y, 1y, 30d")
+    start_date: str = Field(default="2015-06-01", description="Format: YYYY-MM-DD")
+    end_date: str = Field(default=None)
+
