@@ -18,3 +18,9 @@ class StockExtendedModel(StockModel):
     exchange: str = Field(description="The name of the exchange where the company is listed")
     country: str = Field()  # TODO add description
     number_of_employees: str = Field()  # TODO add description
+
+
+class DiagramModel(BaseModel):
+    ticker: str = Field()
+    info: str = Field(default="Close", description="Values: Open, Close, High, Low")
+    interval: str = Field(default="3y", description="examples: max, 3y, 1y, 30d")
