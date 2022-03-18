@@ -7,8 +7,14 @@ dataframe.reset_index()
 
 # draw the plot/figure/diagram
 from plotly import graph_objects
-scatter = graph_objects.Scatter(x=dataframe.index, y=dataframe["Close"])
-diagram = graph_objects.Figure([scatter])
+# scatter = graph_objects.Scatter(x=dataframe.index, y=dataframe["Close"])
+diagram = graph_objects.Figure([graph_objects.Candlestick(
+    x=dataframe.index,
+    open=dataframe["Open"],
+    high=dataframe["High"],
+    low=dataframe["Low"],
+    close=dataframe["Close"],
+)])
 diagram.show()
 
 # dataframe2 = tsla.financials
