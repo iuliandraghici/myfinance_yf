@@ -1,6 +1,7 @@
 import unittest
 from unittest.mock import Mock
 
+from my_finance.exceptions import CannotAddStock
 from my_finance.stock.stock_repo import StockRepository
 from my_finance.stock.stock import Stock
 
@@ -35,7 +36,7 @@ class StockRepoTest(unittest.TestCase):
         new_stock = Stock("TSLA", "Tesla Inc.", "Technology", "USA", 99000)
         self.persistance_mock.add.side_effect = Exception("error message")
         # execution
-        with self.assertRaises(Exception):
+        with self.assertRaises(CannotAddStock):
             StockRepository.add(new_stock)
         self.assertCountEqual([], StockRepository.stocks.values())
 
