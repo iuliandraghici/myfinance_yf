@@ -3,7 +3,7 @@ from plotly import graph_objects
 from matplotlib import pyplot
 import random
 
-from models import DiagramModel
+from my_finance.models import DiagramModel
 
 
 def show_simple_diagram(ticker_id: str, info: str = "Close", interval: str = "3y"):
