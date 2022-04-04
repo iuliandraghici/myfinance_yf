@@ -1,4 +1,5 @@
 from automobil import Automobil
+from motor import Motor
 
 
 class Achizitie:
@@ -18,3 +19,26 @@ class Achizitie:
                culoare == m.get_culoare() and
                vopsea_metalizata == m.get_vopsea_metalizata()
         ]
+
+
+masina1 = Automobil(Motor(4, 5, 6, "benzina", "ser", "c", "sitem"), "albastru", "tesla", True, True,
+                    "discuri", True, False, 4, 4, 6, 30, 0, 3, 2, 1, 10, 5, 8)
+masina2 = Automobil(Motor(4, 5, 6, "benzina", "ser", "c", "sitem"), "rosie", "tesla", True, True,
+                    "discuri", True, False, 4, 4, 6, 30, 0, 3, 2, 1, 10, 5, 8)
+masina3 = Automobil(Motor(4, 5, 6, "benzina", "ser", "c", "sitem"), "neagra", "tesla", True, True,
+                    "discuri", True, False, 4, 4, 6, 30, 0, 3, 2, 1, 10, 5, 8)
+masina4 = Automobil(Motor(4, 5, 6, "benzina", "ser", "c", "sitem"), "alba", "tesla", True, True,
+                    "discuri", True, False, 4, 4, 6, 30, 0, 3, 2, 1, 10, 5, 8)
+masina5 = Automobil(Motor(4, 5, 6, "benzina", "ser", "c", "sitem"), "albastru", "tesla", True, True,
+                    "discuri", True, False, 4, 4, 5, 30, 0, 3, 2, 1, 10, 5, 8)
+masina6 = Automobil(Motor(4, 5, 6, "benzina", "ser", "c", "sitem"), "albastru", "tesla", True, True,
+                    "discuri", True, False, 4, 4, 6, 32, 0, 3, 2, 1, 10, 5, 8)
+masina7 = Automobil(Motor(4, 5, 6, "benzina", "ser", "c", "sitem"), "albastru", "tesla", True, True,
+                    "discuri", True, False, 4, 4, 6, 30, 1, 3, 2, 1, 10, 5, 8)
+
+masina7.print_caracteristici()
+
+achizitie = Achizitie(masina1, masina2, masina3, masina4, masina5, masina6, masina7)
+
+print(achizitie.return_proposed_vehicles())
+
