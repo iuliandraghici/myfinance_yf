@@ -1,3 +1,4 @@
+**Logging**
 Logs are used for tracking what our application is doing and what errors it encounters. We can come at a later date & inspect problems so we can solve bugs.
 
 ```
@@ -18,3 +19,6 @@ logging.critical("Something bad happened, our whole app may stop")
 https://docs.python.org/3/howto/logging.html
 https://realpython.com/python-logging/
 
+
+**Formatting**
+TODO

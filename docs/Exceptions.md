@@ -37,6 +37,16 @@ except Timeout as e:
     print("The request did not come back after 2min. We'll exit!")
 ```
 
+We can have code that executes on success & failure too.
+```
+try:
+	request.get("coinmarketcap.com/api/v1/coins")
+except Exceptions as e:
+	print("We failed to reach coinmarketcap. Error: " + str(e))
+finally:
+	print("We print this always. If exception and if no exception too")
+```
+
 Exceptions are not raised only by Python, we can create and raise our own.
 
 ```

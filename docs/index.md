@@ -4,6 +4,8 @@
 
 [[Functions]]
 
+[[Conditions]]
+
 [[Exceptions]]
 
 [[Version_control]]
@@ -16,10 +18,12 @@
 
 [[CLI]]
 
+[[GUI]]
+
 [[OOP_index]]
 
 [[Functional_programming]]
 
 [[Libraries]]
 
-[[Logging]]
+[[Logging_and_Formatting]]

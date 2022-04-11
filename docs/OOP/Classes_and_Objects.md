@@ -43,6 +43,9 @@ class ClassName:
  another_object = ClassWithoutInit() # instantiate a class without constructor
 ```
 
+
+TODO: getters & setters
+
 More info:
 
 https://www.programiz.com/python-programming/class
