@@ -3,9 +3,10 @@ import json
 
 class Configuration:
     def __init__(self):
-        file = open("configuration/config.json")
+        file = open("my_finance/configuration/config.json")
         contents = file.read()
         file.close()
+        print(contents)
         self.conf = json.loads(contents)
 
     def get_number_of_items_per_page(self) -> int:
