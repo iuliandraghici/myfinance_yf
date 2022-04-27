@@ -26,17 +26,19 @@ def hello():
     print(stocks)
     return render_template("stocks.html", stocks=stocks)
 
+
 @app.route("/stocks/<ticker>/delete", methods=["POST"])
 def delete(ticker):
     stock_repo.remove(ticker)
     return redirect(url_for('hello'))
 
-@app.route("/stocks", methods=["GET","POST"])
+
+@app.route("/stocks", methods=["GET", "POST"])
 def create():
-    if request.method =="POST":
+    if request.method == "POST":
         model = StockModel(ticker=request.form['ticker'])
         new_stock = StockFactory().make_from_model(model)
         stock_repo.add(new_stock)
         return redirect(url_for('hello'))
-    if request.method =="GET":
+    if request.method == "GET":
         return render_template("add_new_stock.html")
