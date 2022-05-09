@@ -1,2 +1,0 @@
-GUI = Graphical User Interface
-
