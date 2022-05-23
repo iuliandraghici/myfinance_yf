@@ -62,7 +62,7 @@ blockchain = Blockchain()
 
 @app.route("/")
 def home():
-    return render_template("home.html")
+    return render_template("templates.html")
 
 
 @app.route("/mine_block", methods=["GET"])
