@@ -69,7 +69,7 @@ def home():
 
 
 @app.route("/mine_block", methods=["GET"])
-def mine_block(json2html=None):
+def mine_block():
     previous_block = blockchain.print_previous_block()
     previous_proof = previous_block["proof"]
     proof = blockchain.proof_of_work(previous_proof)
@@ -85,7 +85,7 @@ def mine_block(json2html=None):
         """<!doctype html><html><head><link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"><link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"></head><body><script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>""")
     rsp.write(json2html.convert(response, table_attributes="class=\"table table-bordered table-hover\""))
     rsp.write(
-        '</body><button onclick="goBack()">Go Back</button><script>function"goBack()"{ window.history.back();}</script></html>')
+        '</body><button onclick="goBack()">Go Back</button><script>function goBack() { window.history.back();}</script></html>')
     return rsp.getvalue()
 
 
@@ -98,12 +98,12 @@ def display_chain():
         """<!doctype html><html><head><link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"><link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"></head><body><script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>""")
     rsp.write(json2html.convert(response, table_attributes="class=\"table table-bordered table-hover\""))
     rsp.write(
-        '</body><button onclick="goBack()">Go Back</button><script>function"goBack()"{ window.history.back();}</script></html>')
+        '</body><button onclick="goBack()">Go Back</button><script>function goBack() { window.history.back();}</script></html>')
     return rsp.getvalue()
 
 
 @app.route("/valid", methods=["GET"])
-def valid(json2html=None):
+def valid():
     valid = blockchain.chain_valid(blockchain.chain)
     if valid:
         response = {"message": "The Blockchain is valid."}
