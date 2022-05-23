@@ -1,4 +1,5 @@
 import json
+from typing import List
 
 from my_finance.stock.persistance_interface import StockPersistanceInterface
 
@@ -7,7 +8,7 @@ class StockFilePersistance(StockPersistanceInterface):
     def __init__(self, path: str):
         self.path = path
 
-    def get_all(self) -> list[dict]:
+    def get_all(self) -> List[dict]:
         print('get all')
         file = open(self.path)
         print('file opened')
@@ -21,7 +22,7 @@ class StockFilePersistance(StockPersistanceInterface):
         items.append(stock_info)
         self.__save(items)
 
-    def __save(self, items: list[dict]):
+    def __save(self, items: List[dict]):
         list_json = json.dumps(items, indent=2)
         file = open(self.path, "w")
         file.write(list_json)

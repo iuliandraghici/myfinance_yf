@@ -1,5 +1,7 @@
+from typing import List
+
 from my_finance.stock.stock import Stock
-from my_finance.exceptions import StockNotFound, CannotAddStock
+from my_finance.exceptions import StockNotFound, CannotAddStock, StockAlreadyAdded, CannotDelete
 
 
 class StockRepository:
@@ -8,6 +10,8 @@ class StockRepository:
 
     @staticmethod
     def add(new_stock: Stock):
+        if new_stock.ticker in StockRepository.stocks.keys():
+            raise StockAlreadyAdded
         stock_info = {
             "ticker": new_stock.ticker,
             "company": new_stock.company,
@@ -25,7 +29,7 @@ class StockRepository:
         StockRepository.stocks[new_stock.ticker] = new_stock
 
     @staticmethod
-    def get_all() -> list[Stock]:
+    def get_all() -> List[Stock]:
         print([s.price for s in StockRepository.stocks.values()])
         return list(StockRepository.stocks.values())
 
@@ -36,10 +40,11 @@ class StockRepository:
             return StockRepository.stocks[ticker]
         else:
             raise StockNotFound()
-        # return StockFactory().make_extended_stock(ticker)
 
     @staticmethod
     def remove(stock_id: str):
+        if stock_id not in StockRepository.stocks.keys():
+            raise CannotDelete
         StockRepository.stocks.pop(stock_id)
         StockRepository.persistance.remove(stock_id)
 

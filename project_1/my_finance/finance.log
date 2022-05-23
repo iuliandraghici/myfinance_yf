@@ -1,0 +1,201 @@
+INFO:root:Starting the finance app ...
+INFO:uvicorn.error:Started server process [7532]
+INFO:uvicorn.error:Waiting for application startup.
+INFO:root:Loading stocks from database ...
+ERROR:uvicorn.error:Traceback (most recent call last):
+  File "C:\Users\crazyfroggg\AppData\Local\Programs\Python\Python38\lib\site-packages\starlette\routing.py", line 621, in lifespan
+    async with self.lifespan_context(app):
+  File "C:\Users\crazyfroggg\AppData\Local\Programs\Python\Python38\lib\site-packages\starlette\routing.py", line 518, in __aenter__
+    await self._router.startup()
+  File "C:\Users\crazyfroggg\AppData\Local\Programs\Python\Python38\lib\site-packages\starlette\routing.py", line 600, in startup
+    handler()
+  File "C:\Users\crazyfroggg\PycharmProjects\python-stocks\project_1\my_finance\.\index.py", line 55, in load_list_of_items
+    stock_repo.load()
+  File "C:\Users\crazyfroggg\PycharmProjects\python-stocks\project_1\my_finance\.\stock\stock_repo.py", line 50, in load
+    items = StockRepository.persistance.get_all()
+  File "C:\Users\crazyfroggg\PycharmProjects\python-stocks\project_1\my_finance\.\database\stock_file_persistance.py", line 14, in get_all
+    file = open(self.path)
+FileNotFoundError: [Errno 2] No such file or directory: 'my_finance/database/database.txt'
+
+ERROR:uvicorn.error:Application startup failed. Exiting.
+INFO:root:Starting the finance app ...
+INFO:uvicorn.error:Started server process [2724]
+INFO:uvicorn.error:Waiting for application startup.
+INFO:root:Loading stocks from database ...
+INFO:root:Successfully loaded stocks from database.
+INFO:uvicorn.error:Application startup complete.
+INFO:uvicorn.error:Uvicorn running on http://127.0.0.1:7777 (Press CTRL+C to quit)
+ERROR:uvicorn.error:Exception in ASGI application
+Traceback (most recent call last):
+  File "C:\Users\crazyfroggg\AppData\Local\Programs\Python\Python38\lib\site-packages\uvicorn\protocols\http\h11_impl.py", line 366, in run_asgi
+    result = await app(self.scope, self.receive, self.send)
+  File "C:\Users\crazyfroggg\AppData\Local\Programs\Python\Python38\lib\site-packages\uvicorn\middleware\proxy_headers.py", line 75, in __call__
+    return await self.app(scope, receive, send)
+  File "C:\Users\crazyfroggg\AppData\Local\Programs\Python\Python38\lib\site-packages\fastapi\applications.py", line 259, in __call__
+    await super().__call__(scope, receive, send)
+  File "C:\Users\crazyfroggg\AppData\Local\Programs\Python\Python38\lib\site-packages\starlette\applications.py", line 112, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\crazyfroggg\AppData\Local\Programs\Python\Python38\lib\site-packages\starlette\middleware\errors.py", line 181, in __call__
+    raise exc
+  File "C:\Users\crazyfroggg\AppData\Local\Programs\Python\Python38\lib\site-packages\starlette\middleware\errors.py", line 159, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\crazyfroggg\AppData\Local\Programs\Python\Python38\lib\site-packages\starlette\exceptions.py", line 82, in __call__
+    raise exc
+  File "C:\Users\crazyfroggg\AppData\Local\Programs\Python\Python38\lib\site-packages\starlette\exceptions.py", line 71, in __call__
+    await self.app(scope, receive, sender)
+  File "C:\Users\crazyfroggg\AppData\Local\Programs\Python\Python38\lib\site-packages\fastapi\middleware\asyncexitstack.py", line 21, in __call__
+    raise e
+  File "C:\Users\crazyfroggg\AppData\Local\Programs\Python\Python38\lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\crazyfroggg\AppData\Local\Programs\Python\Python38\lib\site-packages\starlette\routing.py", line 656, in __call__
+    await route.handle(scope, receive, send)
+  File "C:\Users\crazyfroggg\AppData\Local\Programs\Python\Python38\lib\site-packages\starlette\routing.py", line 259, in handle
+    await self.app(scope, receive, send)
+  File "C:\Users\crazyfroggg\AppData\Local\Programs\Python\Python38\lib\site-packages\starlette\routing.py", line 61, in app
+    response = await func(request)
+  File "C:\Users\crazyfroggg\AppData\Local\Programs\Python\Python38\lib\site-packages\fastapi\routing.py", line 226, in app
+    raw_response = await run_endpoint_function(
+  File "C:\Users\crazyfroggg\AppData\Local\Programs\Python\Python38\lib\site-packages\fastapi\routing.py", line 161, in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+  File "C:\Users\crazyfroggg\AppData\Local\Programs\Python\Python38\lib\site-packages\starlette\concurrency.py", line 39, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func, *args)
+  File "C:\Users\crazyfroggg\AppData\Local\Programs\Python\Python38\lib\site-packages\anyio\to_thread.py", line 28, in run_sync
+    return await get_asynclib().run_sync_in_worker_thread(func, *args, cancellable=cancellable,
+  File "C:\Users\crazyfroggg\AppData\Local\Programs\Python\Python38\lib\site-packages\anyio\_backends\_asyncio.py", line 818, in run_sync_in_worker_thread
+    return await future
+  File "C:\Users\crazyfroggg\AppData\Local\Programs\Python\Python38\lib\site-packages\anyio\_backends\_asyncio.py", line 754, in run
+    result = context.run(func, *args)
+  File "C:\Users\crazyfroggg\PycharmProjects\python-stocks\project_1\my_finance\.\api\stocks.py", line 14, in add_new_stock
+    new_stock = StockFactory.make_from_model(stock_info)
+TypeError: make_from_model() missing 1 required positional argument: 'model'
+INFO:root:Updating prices ...
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): finance.yahoo.com:443
+DEBUG:urllib3.connectionpool:https://finance.yahoo.com:443 "GET /quote/PATH HTTP/1.1" 200 None
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): finance.yahoo.com:443
+DEBUG:urllib3.connectionpool:https://finance.yahoo.com:443 "GET /quote/PATH/holders HTTP/1.1" 200 None
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): finance.yahoo.com:443
+DEBUG:urllib3.connectionpool:https://finance.yahoo.com:443 "GET /quote/PATH/financials HTTP/1.1" 200 None
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): finance.yahoo.com:443
+DEBUG:urllib3.connectionpool:https://finance.yahoo.com:443 "GET /quote/PATH/analysis HTTP/1.1" 200 None
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): finance.yahoo.com:443
+DEBUG:urllib3.connectionpool:https://finance.yahoo.com:443 "GET /quote/PATH/key-statistics?p=PATH HTTP/1.1" 200 None
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): finance.yahoo.com:443
+DEBUG:urllib3.connectionpool:https://finance.yahoo.com:443 "GET /quote/AMZN HTTP/1.1" 200 None
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): finance.yahoo.com:443
+DEBUG:urllib3.connectionpool:https://finance.yahoo.com:443 "GET /quote/AMZN/holders HTTP/1.1" 200 None
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): finance.yahoo.com:443
+DEBUG:urllib3.connectionpool:https://finance.yahoo.com:443 "GET /quote/AMZN/financials HTTP/1.1" 200 None
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): finance.yahoo.com:443
+DEBUG:urllib3.connectionpool:https://finance.yahoo.com:443 "GET /quote/AMZN/analysis HTTP/1.1" 200 None
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): finance.yahoo.com:443
+DEBUG:urllib3.connectionpool:https://finance.yahoo.com:443 "GET /quote/AMZN/key-statistics?p=AMZN HTTP/1.1" 200 None
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): finance.yahoo.com:443
+DEBUG:urllib3.connectionpool:https://finance.yahoo.com:443 "GET /quote/MSFT HTTP/1.1" 200 None
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): finance.yahoo.com:443
+DEBUG:urllib3.connectionpool:https://finance.yahoo.com:443 "GET /quote/MSFT/holders HTTP/1.1" 200 None
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): finance.yahoo.com:443
+DEBUG:urllib3.connectionpool:https://finance.yahoo.com:443 "GET /quote/MSFT/financials HTTP/1.1" 200 None
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): finance.yahoo.com:443
+DEBUG:urllib3.connectionpool:https://finance.yahoo.com:443 "GET /quote/MSFT/analysis HTTP/1.1" 200 None
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): finance.yahoo.com:443
+DEBUG:urllib3.connectionpool:https://finance.yahoo.com:443 "GET /quote/MSFT/key-statistics?p=MSFT HTTP/1.1" 200 None
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): finance.yahoo.com:443
+DEBUG:urllib3.connectionpool:https://finance.yahoo.com:443 "GET /quote/GOOG HTTP/1.1" 200 None
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): finance.yahoo.com:443
+DEBUG:urllib3.connectionpool:https://finance.yahoo.com:443 "GET /quote/GOOG/holders HTTP/1.1" 200 None
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): finance.yahoo.com:443
+DEBUG:urllib3.connectionpool:https://finance.yahoo.com:443 "GET /quote/GOOG/financials HTTP/1.1" 200 None
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): finance.yahoo.com:443
+DEBUG:urllib3.connectionpool:https://finance.yahoo.com:443 "GET /quote/GOOG/analysis HTTP/1.1" 200 None
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): finance.yahoo.com:443
+ERROR:uvicorn.error:Exception in ASGI application
+Traceback (most recent call last):
+  File "C:\Users\crazyfroggg\AppData\Local\Programs\Python\Python38\lib\site-packages\uvicorn\protocols\http\h11_impl.py", line 366, in run_asgi
+    result = await app(self.scope, self.receive, self.send)
+  File "C:\Users\crazyfroggg\AppData\Local\Programs\Python\Python38\lib\site-packages\uvicorn\middleware\proxy_headers.py", line 75, in __call__
+    return await self.app(scope, receive, send)
+  File "C:\Users\crazyfroggg\AppData\Local\Programs\Python\Python38\lib\site-packages\fastapi\applications.py", line 259, in __call__
+    await super().__call__(scope, receive, send)
+  File "C:\Users\crazyfroggg\AppData\Local\Programs\Python\Python38\lib\site-packages\starlette\applications.py", line 112, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\crazyfroggg\AppData\Local\Programs\Python\Python38\lib\site-packages\starlette\middleware\errors.py", line 181, in __call__
+    raise exc
+  File "C:\Users\crazyfroggg\AppData\Local\Programs\Python\Python38\lib\site-packages\starlette\middleware\errors.py", line 159, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\crazyfroggg\AppData\Local\Programs\Python\Python38\lib\site-packages\starlette\exceptions.py", line 82, in __call__
+    raise exc
+  File "C:\Users\crazyfroggg\AppData\Local\Programs\Python\Python38\lib\site-packages\starlette\exceptions.py", line 71, in __call__
+    await self.app(scope, receive, sender)
+  File "C:\Users\crazyfroggg\AppData\Local\Programs\Python\Python38\lib\site-packages\fastapi\middleware\asyncexitstack.py", line 21, in __call__
+    raise e
+  File "C:\Users\crazyfroggg\AppData\Local\Programs\Python\Python38\lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\crazyfroggg\AppData\Local\Programs\Python\Python38\lib\site-packages\starlette\routing.py", line 656, in __call__
+    await route.handle(scope, receive, send)
+  File "C:\Users\crazyfroggg\AppData\Local\Programs\Python\Python38\lib\site-packages\starlette\routing.py", line 259, in handle
+    await self.app(scope, receive, send)
+  File "C:\Users\crazyfroggg\AppData\Local\Programs\Python\Python38\lib\site-packages\starlette\routing.py", line 61, in app
+    response = await func(request)
+  File "C:\Users\crazyfroggg\AppData\Local\Programs\Python\Python38\lib\site-packages\fastapi\routing.py", line 226, in app
+    raw_response = await run_endpoint_function(
+  File "C:\Users\crazyfroggg\AppData\Local\Programs\Python\Python38\lib\site-packages\fastapi\routing.py", line 161, in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+  File "C:\Users\crazyfroggg\AppData\Local\Programs\Python\Python38\lib\site-packages\starlette\concurrency.py", line 39, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func, *args)
+  File "C:\Users\crazyfroggg\AppData\Local\Programs\Python\Python38\lib\site-packages\anyio\to_thread.py", line 28, in run_sync
+    return await get_asynclib().run_sync_in_worker_thread(func, *args, cancellable=cancellable,
+  File "C:\Users\crazyfroggg\AppData\Local\Programs\Python\Python38\lib\site-packages\anyio\_backends\_asyncio.py", line 818, in run_sync_in_worker_thread
+    return await future
+  File "C:\Users\crazyfroggg\AppData\Local\Programs\Python\Python38\lib\site-packages\anyio\_backends\_asyncio.py", line 754, in run
+    result = context.run(func, *args)
+  File "C:\Users\crazyfroggg\PycharmProjects\python-stocks\project_1\my_finance\.\api\stocks.py", line 14, in add_new_stock
+    new_stock = StockFactory.make_from_model(stock_info)
+TypeError: make_from_model() missing 1 required positional argument: 'model'
+DEBUG:urllib3.connectionpool:https://finance.yahoo.com:443 "GET /quote/GOOG/key-statistics?p=GOOG HTTP/1.1" 200 None
+ERROR:uvicorn.error:Exception in ASGI application
+Traceback (most recent call last):
+  File "C:\Users\crazyfroggg\AppData\Local\Programs\Python\Python38\lib\site-packages\uvicorn\protocols\http\h11_impl.py", line 366, in run_asgi
+    result = await app(self.scope, self.receive, self.send)
+  File "C:\Users\crazyfroggg\AppData\Local\Programs\Python\Python38\lib\site-packages\uvicorn\middleware\proxy_headers.py", line 75, in __call__
+    return await self.app(scope, receive, send)
+  File "C:\Users\crazyfroggg\AppData\Local\Programs\Python\Python38\lib\site-packages\fastapi\applications.py", line 259, in __call__
+    await super().__call__(scope, receive, send)
+  File "C:\Users\crazyfroggg\AppData\Local\Programs\Python\Python38\lib\site-packages\starlette\applications.py", line 112, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\crazyfroggg\AppData\Local\Programs\Python\Python38\lib\site-packages\starlette\middleware\errors.py", line 181, in __call__
+    raise exc
+  File "C:\Users\crazyfroggg\AppData\Local\Programs\Python\Python38\lib\site-packages\starlette\middleware\errors.py", line 159, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\crazyfroggg\AppData\Local\Programs\Python\Python38\lib\site-packages\starlette\exceptions.py", line 82, in __call__
+    raise exc
+  File "C:\Users\crazyfroggg\AppData\Local\Programs\Python\Python38\lib\site-packages\starlette\exceptions.py", line 71, in __call__
+    await self.app(scope, receive, sender)
+  File "C:\Users\crazyfroggg\AppData\Local\Programs\Python\Python38\lib\site-packages\fastapi\middleware\asyncexitstack.py", line 21, in __call__
+    raise e
+  File "C:\Users\crazyfroggg\AppData\Local\Programs\Python\Python38\lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\crazyfroggg\AppData\Local\Programs\Python\Python38\lib\site-packages\starlette\routing.py", line 656, in __call__
+    await route.handle(scope, receive, send)
+  File "C:\Users\crazyfroggg\AppData\Local\Programs\Python\Python38\lib\site-packages\starlette\routing.py", line 259, in handle
+    await self.app(scope, receive, send)
+  File "C:\Users\crazyfroggg\AppData\Local\Programs\Python\Python38\lib\site-packages\starlette\routing.py", line 61, in app
+    response = await func(request)
+  File "C:\Users\crazyfroggg\AppData\Local\Programs\Python\Python38\lib\site-packages\fastapi\routing.py", line 226, in app
+    raw_response = await run_endpoint_function(
+  File "C:\Users\crazyfroggg\AppData\Local\Programs\Python\Python38\lib\site-packages\fastapi\routing.py", line 161, in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+  File "C:\Users\crazyfroggg\AppData\Local\Programs\Python\Python38\lib\site-packages\starlette\concurrency.py", line 39, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func, *args)
+  File "C:\Users\crazyfroggg\AppData\Local\Programs\Python\Python38\lib\site-packages\anyio\to_thread.py", line 28, in run_sync
+    return await get_asynclib().run_sync_in_worker_thread(func, *args, cancellable=cancellable,
+  File "C:\Users\crazyfroggg\AppData\Local\Programs\Python\Python38\lib\site-packages\anyio\_backends\_asyncio.py", line 818, in run_sync_in_worker_thread
+    return await future
+  File "C:\Users\crazyfroggg\AppData\Local\Programs\Python\Python38\lib\site-packages\anyio\_backends\_asyncio.py", line 754, in run
+    result = context.run(func, *args)
+  File "C:\Users\crazyfroggg\PycharmProjects\python-stocks\project_1\my_finance\.\api\stocks.py", line 14, in add_new_stock
+    new_stock = StockFactory.make_from_model(stock_info)
+TypeError: make_from_model() missing 1 required positional argument: 'model'
+INFO:uvicorn.error:Shutting down
+INFO:uvicorn.error:Waiting for application shutdown.
+INFO:uvicorn.error:Application shutdown complete.
+INFO:uvicorn.error:Finished server process [2724]
