@@ -5,7 +5,7 @@
       <sourceFolder url="file://$MODULE_DIR$/project_1/my_finance" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/project_1/venv" />
     </content>
-    <orderEntry type="jdk" jdkName="Python 3.9 (itschool_my_finance)" jdkType="Python SDK" />
+    <orderEntry type="jdk" jdkName="Python 3.10" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
 </module>
