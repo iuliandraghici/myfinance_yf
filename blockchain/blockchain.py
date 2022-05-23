@@ -1,6 +1,8 @@
 import hashlib
 import json
 import datetime
+from io import StringIO
+
 from flask import Flask, render_template
 
 
@@ -90,7 +92,7 @@ def mine_block():
 def display_chain():
     response = {"chain": blockchain.chain,
                 "length": len(blockchain.chain)}
-    rsp = StringIO()
+    rsp: StringIO = StringIO()
     rsp.write(
         """<!doctype html><html><head><link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"><link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"></head><body><script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>""")
     rsp.write(json2html.convert(response, table_attributes="class=\"table table-bordered table-hover\""))
