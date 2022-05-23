@@ -1,9 +1,10 @@
+import datetime
 import hashlib
 import json
-import datetime
+from flask import Flask, jsonify, render_template
+from json2html import *
 from io import StringIO
 
-from flask import Flask, render_template
 
 
 class Blockchain:
@@ -68,7 +69,7 @@ def home():
 
 
 @app.route("/mine_block", methods=["GET"])
-def mine_block():
+def mine_block(json2html=None):
     previous_block = blockchain.print_previous_block()
     previous_proof = previous_block["proof"]
     proof = blockchain.proof_of_work(previous_proof)
@@ -102,7 +103,7 @@ def display_chain():
 
 
 @app.route("/valid", methods=["GET"])
-def valid():
+def valid(json2html=None):
     valid = blockchain.chain_valid(blockchain.chain)
     if valid:
         response = {"message": "The Blockchain is valid."}
